@@ -1,12 +1,13 @@
 language: php
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - hhvm
-  - nightly
+    - 5.5
 
-env:
-  - DB=mysql
-  
-script: phpunit --coverage-text
+before_script:
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - composer install
+  - php app/console doctrine:database:create --env=test
+  - php app/console doctrine:schema:create --env=test
+  - php app/console doctrine:fixtures:load -n --env=test
+
+script:
+  - phpunit -c app
