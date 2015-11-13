@@ -12,3 +12,6 @@ before_script:
 
 script:
   - phpunit -c app
+  
+notifications:
+  slack: exia-aix:RHR8dOYulGyh4IrU45OQpmMp
